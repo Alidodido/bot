@@ -1,10 +1,12 @@
 <?php
+
 function save($filename, $TXTdata)
 {
     $myfile = fopen($filename, "w") or die("Unable to open file!");
     fwrite($myfile, "$TXTdata");
     fclose($myfile);
 }
+
 /* Tabee Bot OFficial */
 function bot($method, $datas = [])
 {
@@ -21,6 +23,7 @@ function bot($method, $datas = [])
         return json_decode($res);
     }
 }
+
 /* Zip Aechive */
 function create_zip($files = array(), $destination = '')
 {
@@ -215,4 +218,36 @@ function EditMessageCaption($chat_id, $message_id, $caption, $keyboard, $inline_
         'reply_markup' => $keyboard,
         'inline_message_id' => $inline_message_id
     ]);
+}
+
+//---- our functions ----
+
+function CheckChannelSubscribe($channel_id,$user_id){
+    $result = GetChatMember($channel_id,$user_id);
+    if($result !="member"){
+        return true;
+    }
+
+    return false;
+}
+
+function DisplayJoinChannel($channel_id,$user_id){
+    $channel_username = getChat($channel_id)->result->username;
+    SendMessage($user_id,"Join @{$channel_username}",false,[]);
+}
+
+function CheckAllChannelsSubscribe($channel_ids,$user_id){
+    $is_subscribed = true;
+    foreach($channel_ids as $channel_id){
+        if(!CheckChannelSubscribe($channel_id,$user_id)){
+            DisplayJoinChannel($channel_id,$user_id);
+            $is_subscribed = false;
+        }
+    }
+
+    if($is_subscribed){
+        return true;
+    }
+    
+    return false;
 }
