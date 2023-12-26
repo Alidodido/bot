@@ -30,6 +30,8 @@ if($subscribe_check==1){
         require "commands/whois.php";
     } elseif (strpos($text, '/calc') === 0) {
         require "commands/calculate.php";
+    } elseif ($text == '/dice'){
+        require "commands/dice.php";
     }
 }
 
