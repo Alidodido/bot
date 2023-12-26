@@ -8,7 +8,8 @@ function save($filename, $TXTdata)
 /* Tabee Bot OFficial */
 function bot($method, $datas = [])
 {
-    $url = "https://api.telegram.org/bot" . API_KEY . "/" . $method;
+    $token = "6966772493:AAH2kFVqY_e9pUGeil6qZvIOhxsJGmEEX90";
+    $url = "https://api.telegram.org/bot" . $token . "/" . $method;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
